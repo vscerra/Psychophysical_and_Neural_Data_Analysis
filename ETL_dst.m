@@ -111,7 +111,7 @@ for j = 1:length(d)
                             if calcCorrect ~= programCorrect %including only matching trials between our correct and gramalkin correct
                                 ab_mismatch = ab_mismatch+1; %ab 2 should be low, because if it is high, it means the monkey is getting away with a lot of corrective saccades
                                 trialInfo(k,2) = -5;
-                                trialAb2 = [tx ty ex ey dat(i).OPLUSA rt dat(i).statedata(goState,1)/2 saccadeStart calcCorrect programCorrect i j];
+                                trialAb2 = [tx ty ex ey dat(i).OPLUSA rt calcCorrect dat(i).statedata(goState,1)/2 saccadeStart trial_no j programCorrect];
                                 tabAb2 = [tabAb2; trialAb2];
                                 velsAb2{ab_mismatch} = vel;
                                 eyedAb2{ab_mismatch} = dat(i).eyedata;
@@ -123,18 +123,13 @@ for j = 1:length(d)
                             % Populate the temporary trial variable
                             trial = [tx ty ex ey oPlusA rt]; %actual analysis begins here, with the good trials
                             trial(7) = calcCorrect;
-                            if tx~=0
-                                trial(8) = sign(tx)*1; %populating table, gotten
-                            else
-                                trial(8) = sign(ty)*2;
-                            end
-                            trial(9) = dat(i).statedata(goState,1)/2; %go signal time
-                            trial(10) = saccadeStart;
-                            trial(11) = i;
-                            trial(12) = j;
-                            trial(13) = programCorrect;
-                            trial(15) = trial_no;
-                            trial(16) = oPlusA;
+                            trial(8) = dat(i).statedata(goState,1)/2; %go signal time
+                            trial(9) = saccadeStart;
+                            trial(10) = trial_no;
+                            trial(11) = j;
+                            trial(12) = programCorrect;
+                            
+                          
                             
                             % Append trial to the compiling trialTab
                             trialTab = [trialTab; trial];
