@@ -7,8 +7,19 @@
 % (analyzeCS_reereesingletarg.m)
 % - modified in 2015 for new task time codes
 % - modified in 2018 for Cell Biology paper
-% - modified in 2023 for clarity and posting on github
+% - modified 11/2023 for clarity and posting on github
 % - goState, targetState, confirmCorrect functions added
+
+% Functions called: 
+    % g_readData.m
+    % goId.m
+    % targetId.m
+    % confirmCorrect.m
+    % calcVelIndy_Easy
+% Variables and data files called:
+    % dataGuide.mat
+    % dataFiles_Indy - as needed
+    
 clear
 load dataGuide
 % path='C:\Users\vscerra\My Documents\MATLAB\CleanStart\NewTask\Ravi\';
@@ -57,7 +68,7 @@ for j = 1:length(d)
                     % Find when the go command was issued ("goState")
                     goState = goId(stateData, goCodes);
                     if isnan(goState); ab_nogo = ab_nogo+1; trialInfo(k,2) = -9;
-                        % print('no go state')
+                        print('no go state')
                         continue;
                     end
                     
@@ -71,7 +82,7 @@ for j = 1:length(d)
                         % Look for the target information for the trial
                         targetState = targetId(stateData, tOnCodes, tRows);
                         if isnan(targetState)
-                            %disp('No target state')
+                            disp('No target state')
                             ab_Tgt = ab_Tgt+1;
                             continue;
                         end
