@@ -5,6 +5,9 @@
 % => 1.7067 points per degree
 % velocity[i] = (-2 * x[i-2] - x[i-1] + x[i+1] + 2 * x[i+2])/10H where H is
 % the sampling rate in sec (=0.002 in our case)
+
+% Veronica Scerra, 11/2023
+
 function [rt ex ey vel ss] = calcVelIndy_Easy(trial, fixIdx)%this takes each dat trial, fixIdx is the gap row in statedata (8 or 9)
 e = trial.eyedata;
 vel = zeros(1,size(e,1)-3);

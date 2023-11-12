@@ -1,6 +1,8 @@
 function [nData, binId, dataMetric] = plot_histogram(data, binRange, plotMetric)
 %PLOT_HISTOGRAM function takes input data and binRange(opt), to return a
-%figure, n, and x. 
+%figure, nData, binId, and dataMetric. 
+
+% [nData, binId, dataMetric] = plot_histogram(data, binRange, plotMetric)
 
 % INPUTS: 
     % data: vector of the data you want binned and plotted

@@ -2,6 +2,9 @@ function [goState] = goId(stateData, goCodes)
 % goId: This function takes the stateData for a trial (from the dat structure)
 % and the codes assigned to the "go" and returns the stateData row corresponding
 % to the "go" command
+
+%  [goState] = goId(stateData, goCodes)
+
 % Inputs : 
     % stateData : matrix of values from the dat structure containing state
             % start times, end times, and the state "code"

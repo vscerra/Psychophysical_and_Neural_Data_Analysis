@@ -2,6 +2,9 @@ function [targetState] = targetId(stateData, tOnCodes, tRows)
 % targetId: This function takes the stateData for a trial (from the dat structure)
 % and the codes assigned to the "target-on" state and returns the stateData row corresponding
 % to the "target-on" command
+
+% [targetState] = targetId(stateData, tOnCodes, tRows)
+
 % Inputs : 
     % stateData : matrix of values from the dat structure containing state
             % start times, end times, and the state "code"
