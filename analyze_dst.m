@@ -34,23 +34,47 @@ rtBins = 0:10:400;
 
 
 
-%% 
-% Reaction time analysis
-[nRt, xRt] = histc(rtData(ccorrect==1), rtBins);
-meanRt = mean(rtData(ccorrect == 1));
-formatted_rt = sprintf('%.2f', meanRt); % format the variable to use in the title
-% Plot the histogram
-figure(1)
+%% === Reaction time analysis ===
+rtBins = [0, 400, 10];
+% Plot the histograms for Reaction Time
+figure(1); hold on
+subplot(121)
+[nRt, xRt, mean_rt] = plot_histogram(rtData, rtBins, @mean);
 hold on
-bar(rtBins,nRt/sum(nRT))
-box off
-xlim([0, 400])
+formatted_rt = sprintf('%.2f',mean_rt); 
 textMssg = ['mean reaction time of ', formatted_rt , ' for correct DST trials'];
 title(textMssg)
 xlabel('reaction time [ms]')
-ylabel('number of trials')
-set(gca, 'TickDir','out','Ytick',[0, 1000, 2000, 3000, 4000])
 
-lowRt = find(xRt==1);
+subplot(122)
+[nRtAb, xRtAb, mean_rtAb] = plot_histogram(rtData_ab, rtBins, @mean);
+hold on
+formatted_rt = sprintf('%.2f',mean_rtAb); 
+textMssg = ['mean reaction time of ', formatted_rt , ' for error DST trials'];
+title(textMssg)
+xlabel('reaction time [ms]')
 
+hold off
 
+lowRt = find(xRt < 6);
+lowRtAb = find(xRtAb < 6);
+
+%% === OPlusA analysis ===
+opaBins = [100, 700, 50];
+% Plot histograms for O + A data
+figure(2); hold on
+subplot(121)
+[nOpa, xOpa, med_opa] = plot_histogram(oplusa, opaBins, @median);
+hold on
+formatted_opa = sprintf('%.0f',med_opa); 
+textMssg = ['median reaction time of ', formatted_opa , ' for correct DST trials'];
+title(textMssg)
+xlabel('O + A time [ms]')
+
+subplot(122)
+[nOpaAb, xOpaAb, med_opaAb] = plot_histogram(oplusa_ab, opaBins, @median);
+hold on
+formatted_opa = sprintf('%.0f',med_opaAb); 
+textMssg = ['median reaction time of ', formatted_opa , ' for correct DST trials'];
+title(textMssg)
+xlabel('O + A time [ms]')
