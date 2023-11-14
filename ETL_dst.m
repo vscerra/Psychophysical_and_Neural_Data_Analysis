@@ -37,9 +37,10 @@ goCodes = [8, 9];
 tOnCodes = [4, 5];
 tRows = [2, 4];
 MOE = 6; %requires at most 6 degrees of separation between target and final eye position for it to be considered a correct trial
-corr = 0;
+
 % Initializing variables to be used in the loop
 k = 0;
+corr = 0;
 trialTab = [];
 file_names = [];
 vels = cell(1,9000);
@@ -54,7 +55,7 @@ velsAb2 = cell(1,1000);
 eyedAb2 = cell(1,1000);
 
 
-%%
+%% === Load, extract, transform data ===
 for j = 1:length(d)
     try
         dat = g_readData(dataGuide(j).name);
@@ -107,11 +108,11 @@ for j = 1:length(d)
                             % Confirm that the analytically determined trial outcome matches
                             % the program trial evaluation
                             calcCorrect = confirmCorrect([tx, ty], [ex, ey], MOE);
-                            programCorrect = ~isempty(find(dat(i).statedata(:,3)==12,1)); %looking at the buzzer state to see if monkey was correct
+                            programCorrect = ~isempty(find(stateData(:,3)==12,1)); %looking at the buzzer state to see if monkey was correct
                             if calcCorrect ~= programCorrect %including only matching trials between our correct and gramalkin correct
-                                ab_mismatch = ab_mismatch+1; %ab 2 should be low, because if it is high, it means the monkey is getting away with a lot of corrective saccades
+                                ab_mismatch = ab_mismatch+1; %ab_mismatch should be low, because if it is high, it means the monkey is getting away with a lot of corrective saccades
                                 trialInfo(k,2) = -5;
-                                trialAb2 = [tx ty ex ey dat(i).OPLUSA rt calcCorrect dat(i).statedata(goState,1)/2 saccadeStart trial_no j programCorrect];
+                                trialAb2 = [tx, ty, ex, ey, dat(i).OPLUSA, rt, calcCorrect, stateData(goState,1)/2, saccadeStart, trial_no j programCorrect];
                                 tabAb2 = [tabAb2; trialAb2];
                                 velsAb2{ab_mismatch} = vel;
                                 eyedAb2{ab_mismatch} = dat(i).eyedata;
@@ -133,10 +134,9 @@ for j = 1:length(d)
                             
                             % Append trial to the compiling trialTab
                             trialTab = [trialTab; trial];
-                            tNo = tNo + 1;
                             trialInfo(k,2) = 1;
-                            vels{tNo} = vel;
-                            eyed{tNo} = dat(i).eyedata;
+                            vels{k} = vel;
+                            eyed{k} = dat(i).eyedata;
                         end
                     end
                 end
